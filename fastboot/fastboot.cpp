@@ -43,7 +43,6 @@ void FillDefaultFastbootLines(std::vector<std::string>& title_lines) {
   std::string baseband_version = android::base::GetProperty("ro.build.expect.baseband", "");
   std::string hw_version = android::base::GetProperty(
       "ro.boot.hardware.revision", android::base::GetProperty("ro.revision", ""));
-  std::vector<std::string> title_lines;
   title_lines.push_back("Product name - " + android::base::GetProperty("ro.product.device", ""));
   if (!android::base::EqualsIgnoreCase(bootloader_version, "unknown")) {
     title_lines.push_back("Bootloader version - " + bootloader_version);
