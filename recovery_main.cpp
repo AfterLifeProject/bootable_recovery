@@ -70,7 +70,7 @@ static constexpr const char* LOCALE_FILE = "/cache/recovery/last_locale";
 static RecoveryUI* ui = nullptr;
 
 static bool IsRoDebuggable() {
-  return android::base::GetBoolProperty("ro.debuggable", false);
+  return true;
 }
 
 static bool IsDeviceUnlocked() {
@@ -490,13 +490,8 @@ int main(int argc, char** argv) {
     device->RemoveMenuItemForAction(Device::ENTER_RESCUE);
   }
 
-  if (get_build_type() != "userdebug") {
-    device->RemoveMenuItemForAction(Device::ENABLE_ADB);
-  }
-
-  if (get_build_type() == "user") {
-    device->RemoveMenuItemForAction(Device::WIPE_SYSTEM);
-    device->RemoveMenuItemForAction(Device::MOUNT_SYSTEM);
+  if (!android::base::GetBoolProperty("ro.build.ab_update", false)) {
+    device->RemoveMenuItemForAction(Device::SWAP_SLOT);
   }
 
   ui->SetBackground(RecoveryUI::NONE);
